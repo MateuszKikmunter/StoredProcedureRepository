@@ -1,7 +1,10 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /StoreProcedureRepository/StoreProcedureRepository/obj/Debug
 /StoreProcedureRepository/StoreProcedureRepository/bin/Debug
 /StoreProcedureRepository/.vs/StoreProcedureRepository/v15
+StoreProcedureRepository/StoredProcedureRepository.Infrastructure/bin/
+StoreProcedureRepository/StoredProcedureRepository.Infrastructure/obj/
+StoreProcedureRepository/packages/
