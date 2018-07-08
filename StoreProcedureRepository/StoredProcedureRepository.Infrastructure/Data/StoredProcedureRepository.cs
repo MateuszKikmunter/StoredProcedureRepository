@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using StoredProcedureRepository.Infrastructure.Extensions;
@@ -12,10 +11,7 @@ namespace StoredProcedureRepository.Infrastructure.Data
     {
         private readonly DbContext _context;
 
-        public StoredProcedureRepository(DbContext context)
-        {
-            _context = context;
-        }
+        public StoredProcedureRepository(DbContext context) => _context = context;
 
         public IEnumerable<T> Get<T>(string spName, object parameter)
         {

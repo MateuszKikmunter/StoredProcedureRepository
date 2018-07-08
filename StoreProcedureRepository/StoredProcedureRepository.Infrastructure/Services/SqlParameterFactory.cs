@@ -52,7 +52,7 @@ namespace StoredProcedureRepository.Infrastructure.Services
         }
 
         /// <summary>
-        /// Creates SqlParameter
+        /// Creates SqlParameter for every property in provided object.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>

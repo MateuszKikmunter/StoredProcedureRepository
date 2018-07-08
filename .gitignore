@@ -8,3 +8,5 @@
 StoreProcedureRepository/StoredProcedureRepository.Infrastructure/bin/
 StoreProcedureRepository/StoredProcedureRepository.Infrastructure/obj/
 StoreProcedureRepository/packages/
+StoreProcedureRepository/StoredProcedureRepository.UnitTests/bin/
+StoreProcedureRepository/StoredProcedureRepository.UnitTests/obj/
