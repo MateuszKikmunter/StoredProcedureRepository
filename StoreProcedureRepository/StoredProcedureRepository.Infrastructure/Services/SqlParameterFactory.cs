@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,31 +10,18 @@ namespace StoredProcedureRepository.Infrastructure.Services
 {
     public static class SqlParameterFactory
     {
+        /// <summary>
+        /// Creates SqlParameter. 
+        /// </summary>
+        /// <param name="paramName"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public static SqlParameter CreateParameter(string paramName, object param)
         {
             Guard.ThrowIfStringNullOrWhiteSpace(paramName);
             Guard.ThrowIfNull(param);
 
             return new SqlParameter($"@{ paramName }", param);
-        }
-
-        public static SqlParameter CreateParameter(string paramName)
-        {
-            return string.IsNullOrEmpty(paramName)
-                ? throw new ArgumentException(nameof(paramName))
-                : new SqlParameter { ParameterName = $"@{ paramName }" };
-        }
-
-        public static SqlParameter BuildParamsWhenUserDefinedTableType<T>(string paramName, object obj)
-        {
-            Guard.ThrowIfStringNullOrWhiteSpace(paramName);
-            Guard.ThrowIfNull(obj);
-
-            return new SqlParameter(paramName, SqlDbType.Structured)
-            {
-                TypeName = $"dbo.{ paramName }",
-                Value = ConvertToDataTable(obj as List<T>)
-            };
         }
 
         /// <summary>
@@ -52,29 +40,52 @@ namespace StoredProcedureRepository.Infrastructure.Services
         }
 
         /// <summary>
+        /// Creates user defined table type parameter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paramName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static SqlParameter BuildUserDefinedTableTypeParameter<T>(string paramName, IList<T> value)
+        {
+            Guard.ThrowIfStringNullOrWhiteSpace(paramName);
+            Guard.ThrowIfNull(value);
+            Guard.ThrowIfEmpty(value);
+
+            return new SqlParameter
+            {
+                ParameterName = $"@{paramName}",
+                TypeName = $"dbo.{paramName}",
+                SqlDbType = SqlDbType.Structured,
+                Value = ConvertToDataTable(value)
+            };
+        }
+
+        /// <summary>
         /// Creates SqlParameter for every property in provided object.
+        /// If property is a collection, creates user defined table type parameter for it.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static SqlParameter[] BuildParamsWhenUserDefinedTableType(object obj)
+        public static SqlParameter[] BuildParamsForObjectWithUserDefinedTableType(object obj)
         {
             Guard.ThrowIfNull(obj);
 
-            var props = obj.GetType().GetProperties();
-            var names = props.Select(p => p.Name).ToList();
-
             var result = new List<SqlParameter>();
+            var props = obj.GetType().GetProperties();
             foreach (var prop in props)
             {
-                if (!(typeof(IList<>).IsAssignableFrom(prop.PropertyType) && prop.GetType().IsGenericType))
+                if (!(prop.PropertyType.IsGenericType && typeof(IEnumerable).IsAssignableFrom(prop.PropertyType)))
                 {
                     result.Add(CreateParameter(prop.Name, prop.GetValue(obj, null)));
                 }
                 else
                 {
-                    result.Add(new SqlParameter($"@{ prop.Name }", SqlDbType.Structured)
+                    result.Add(new SqlParameter
                     {
+                        ParameterName = $"@{ prop.Name }",
                         TypeName = $"dbo.{ prop.Name }",
+                        SqlDbType = SqlDbType.Structured,
                         Value = ConvertToDataTable(new List<object> { prop.GetValue(obj, null) })
                     });
                 }
