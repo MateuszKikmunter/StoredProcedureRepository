@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Guard.cs" />
     <Compile Include="Services\SqlParameterFactory.cs" />
+    <Compile Include="Services\StoredProcedureNameFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StoreProcedureRepository\StoreProcedureRepository.Core.csproj">

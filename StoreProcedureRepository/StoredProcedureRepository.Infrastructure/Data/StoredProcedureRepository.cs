@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using StoredProcedureRepository.Infrastructure.Extensions;
 using StoredProcedureRepository.Infrastructure.Services;
 using StoreProcedureRepository.Abstract;
 
@@ -20,7 +18,7 @@ namespace StoredProcedureRepository.Infrastructure.Data
             var parameters = SqlParameterFactory.BuildParamsForObject(parameter);
             return _context
                 .Database
-                .SqlQuery<T>(GetStoredProcedureNameWithParameters(spName, parameter), parameters);
+                .SqlQuery<T>(StoredProcedureNameFormatter.GetStoredProcedureNameWithParameters(spName, parameter), parameters);
         }
 
         public int ExecuteCommand(string spName, object parameter)
@@ -30,15 +28,7 @@ namespace StoredProcedureRepository.Infrastructure.Data
             var parameters = SqlParameterFactory.BuildParamsForObject(parameter);
             return _context
                 .Database
-                .ExecuteSqlCommand(GetStoredProcedureNameWithParameters(spName, parameter), parameters);
-        }
-
-        private string GetStoredProcedureNameWithParameters(string spName, object param)
-        {
-            var names = param.GetType().GetProperties().Select(p => p.Name).ToList();
-            names.ForEach(name => spName += $" @{name},");
-
-            return spName.RemoveLastCharacter();
+                .ExecuteSqlCommand(StoredProcedureNameFormatter.GetStoredProcedureNameWithParameters(spName, parameter), parameters);
         }
     }
 }
