@@ -6,8 +6,6 @@ namespace StoreProcedureRepository.Abstract
     {
         /// <summary>
         /// Returns data for provided type by calling parametrized stored procedure.
-        /// Internally creates SqlParameter for every property in provided object. 
-        /// Works with user defined table types.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="spName"></param>
@@ -17,7 +15,6 @@ namespace StoreProcedureRepository.Abstract
 
         /// <summary>
         /// Performs DML/DDL parametrized query against database. 
-        /// Works with user defined table types.
         /// </summary>
         /// <param name="spName"></param>
         /// <param name="parameter"></param>

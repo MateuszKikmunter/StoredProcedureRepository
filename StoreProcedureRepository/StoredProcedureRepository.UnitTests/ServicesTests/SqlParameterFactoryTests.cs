@@ -144,47 +144,5 @@ namespace StoredProcedureRepository.UnitTests.ServicesTests
             parameterValue.Columns[0].ColumnName.Should().Be("Id");
             parameterValue.Columns[1].ColumnName.Should().Be("Name");
         }
-
-        [Test]
-        public void BuildParamsForObjectWhenUserDefinedTableType_NullObject_ThrowsException()
-        {
-            //arrange
-            object paramValue = null;
-
-            //act
-            Action result = () => SqlParameterFactory.BuildParamsForObjectWithUserDefinedTableType(paramValue);
-
-            //assert
-            result.Should().Throw<ArgumentNullException>();
-        }
-
-        [Test]
-        public void BuildParamsWhenUserDefinedTableType_ValidObject_CreatesParameterForEveryObjectProperty()
-        {
-            //arrange
-            var obj = new
-            {
-             //   Id = 1,
-                FakeList = new List<FakeEntity>
-                {
-                    new FakeEntity
-                    {
-                        Id = 1,
-                        Name = "Fake1"
-                    },
-                    new FakeEntity
-                    {
-                        Id = 2,
-                        Name = "Fake2"
-                    }
-                }
-            };
-
-            //act
-            var result = SqlParameterFactory.BuildParamsForObjectWithUserDefinedTableType(obj);
-
-            //assert
-            result.Should().NotBeNullOrEmpty();
-        }
     }
 }

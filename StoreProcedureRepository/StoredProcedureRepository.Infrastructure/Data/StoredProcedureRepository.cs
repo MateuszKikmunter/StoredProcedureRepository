@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using StoredProcedureRepository.Infrastructure.Extensions;
@@ -19,7 +17,7 @@ namespace StoredProcedureRepository.Infrastructure.Data
         {
             Guard.ThrowIfStringNullOrWhiteSpace(spName);
 
-            var parameters = SqlParameterFactory.BuildParamsForObjectWithUserDefinedTableType(parameter);
+            var parameters = SqlParameterFactory.BuildParamsForObject(parameter);
             return _context
                 .Database
                 .SqlQuery<T>(GetStoredProcedureNameWithParameters(spName, parameter), parameters);
@@ -29,7 +27,7 @@ namespace StoredProcedureRepository.Infrastructure.Data
         {
             Guard.ThrowIfStringNullOrWhiteSpace(spName);
 
-            var parameters = SqlParameterFactory.BuildParamsForObjectWithUserDefinedTableType(parameter);
+            var parameters = SqlParameterFactory.BuildParamsForObject(parameter);
             return _context
                 .Database
                 .ExecuteSqlCommand(GetStoredProcedureNameWithParameters(spName, parameter), parameters);

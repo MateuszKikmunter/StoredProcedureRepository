@@ -61,38 +61,6 @@ namespace StoredProcedureRepository.Infrastructure.Services
             };
         }
 
-        /// <summary>
-        /// Creates SqlParameter for every property in provided object.
-        /// If property is a collection, creates user defined table type parameter for it.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static SqlParameter[] BuildParamsForObjectWithUserDefinedTableType(object obj)
-        {
-            Guard.ThrowIfNull(obj);
-
-            var result = new List<SqlParameter>();
-            var props = obj.GetType().GetProperties();
-            foreach (var prop in props)
-            {
-                if (!(prop.PropertyType.IsGenericType && typeof(IEnumerable).IsAssignableFrom(prop.PropertyType)))
-                {
-                    result.Add(CreateParameter(prop.Name, prop.GetValue(obj, null)));
-                }
-                else
-                {
-                    result.Add(new SqlParameter
-                    {
-                        ParameterName = $"@{ prop.Name }",
-                        TypeName = $"dbo.{ prop.Name }",
-                        SqlDbType = SqlDbType.Structured,
-                        Value = ConvertToDataTable(new List<object> { prop.GetValue(obj, null) })
-                    });
-                }
-            }
-            return result.ToArray();
-        }
-
         private static DataTable ConvertToDataTable<T>(IList<T> data)
         {
             var properties = TypeDescriptor.GetProperties(typeof(T));
