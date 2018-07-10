@@ -58,6 +58,33 @@ namespace StoredProcedureRepository.UnitTests.ServicesTests
         }
 
         [Test]
+        public void CreateParameter_EmptyString_ThrowsException()
+        {
+            //arrange
+            var paramName = string.Empty;
+
+            //act
+            Action result = () => SqlParameterFactory.CreateParameter(paramName);
+
+            //assert
+            result.Should().Throw<ArgumentNullException>();
+        }
+
+        [Test]
+        public void CreateParameter_ValidParameterName_CreatesSqlParameter()
+        {
+            //arrange
+            var paramName = "Param";
+
+            //act
+            var result = SqlParameterFactory.CreateParameter(paramName);
+
+            //assert
+            result.Should().NotBeNull();
+            result.ParameterName.Should().Be($"@{paramName}");
+        }
+
+        [Test]
         public void BuildParamsForObject_NullObject_ThrowsException()
         {
             //arrange

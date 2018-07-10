@@ -24,6 +24,17 @@ namespace StoredProcedureRepository.Infrastructure.Services
         }
 
         /// <summary>
+        /// Creates SqlParameter.
+        /// </summary>
+        /// <param name="paramName"></param>
+        /// <returns></returns>
+        public static SqlParameter CreateParameter(string paramName)
+        {
+            Guard.ThrowIfStringNullOrWhiteSpace(paramName);
+            return new SqlParameter { ParameterName = $"@{ paramName }" };
+        }
+
+        /// <summary>
         /// Creates SqlParameter for every property in provided object.
         /// </summary>
         /// <param name="obj"></param>
@@ -33,8 +44,6 @@ namespace StoredProcedureRepository.Infrastructure.Services
             Guard.ThrowIfNull(obj);
 
             var props = obj.GetType().GetProperties();
-            var names = props.Select(p => p.Name).ToList();
-
             return props.Select(p => CreateParameter(p.Name, p.GetValue(obj, null))).ToArray();
         }
 
