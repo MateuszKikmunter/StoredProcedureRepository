@@ -18,7 +18,6 @@ namespace StoredProcedureRepository.Infrastructure.Extensions
         /// <returns></returns>
         public static DbCommand WithSqlParam(this DbCommand cmd, string paramName, object paramValue, Action<SqlParameter> configureParam = null)
         {
-
             Guard.ThrowIfAnyIsNullOrEmpty(cmd.CommandText, paramName);
             Guard.ThrowIfNull(paramValue);
 
