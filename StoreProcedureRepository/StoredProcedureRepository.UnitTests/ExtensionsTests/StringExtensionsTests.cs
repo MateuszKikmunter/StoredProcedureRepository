@@ -3,7 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using StoredProcedureRepository.Infrastructure.Extensions;
 
-namespace StoredProcedureRepository.UnitTests.ServicesTests
+namespace StoredProcedureRepository.UnitTests.ExtensionsTests
 {
     [TestFixture]
     public class StringExtensionsTests
