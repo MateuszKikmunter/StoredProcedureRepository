@@ -12,3 +12,5 @@ StoreProcedureRepository/StoredProcedureRepository.UnitTests/bin/
 StoreProcedureRepository/StoredProcedureRepository.UnitTests/obj/
 StoreProcedureRepository/StoreProcedureRepository.sln.DotSettings.user
 StoreProcedureRepository/.vs/
+StoreProcedureRepository/StoredProcedureRepository.IntegrationTests/bin/
+StoreProcedureRepository/StoredProcedureRepository.IntegrationTests/obj/
