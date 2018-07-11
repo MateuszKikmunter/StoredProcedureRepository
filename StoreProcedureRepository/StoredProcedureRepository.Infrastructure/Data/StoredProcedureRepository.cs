@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using StoredProcedureRepository.Infrastructure.Services;
 using StoreProcedureRepository.Abstract;
+using StoreProcedureRepository.Services;
 
 namespace StoredProcedureRepository.Infrastructure.Data
 {

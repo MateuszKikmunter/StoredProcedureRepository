@@ -72,6 +72,10 @@
       <Project>{96D1C354-9925-4D0A-8A09-A96F40B85040}</Project>
       <Name>StoredProcedureRepository.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StoreProcedureRepository\StoredProcedureRepository.Core.csproj">
+      <Project>{d7661264-b597-4b5f-8f1b-24aa3d0ab39c}</Project>
+      <Name>StoredProcedureRepository.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

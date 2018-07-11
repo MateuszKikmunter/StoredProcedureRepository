@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IStoredProcedureRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Guard.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

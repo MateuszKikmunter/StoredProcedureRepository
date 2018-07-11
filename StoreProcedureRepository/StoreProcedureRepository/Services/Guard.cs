@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StoredProcedureRepository.Infrastructure.Services
+namespace StoreProcedureRepository.Services
 {
     public static class Guard
     {

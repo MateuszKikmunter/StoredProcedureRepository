@@ -48,14 +48,13 @@
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Guard.cs" />
     <Compile Include="Services\SqlParameterFactory.cs" />
     <Compile Include="Services\StoredProcedureNameFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StoreProcedureRepository\StoreProcedureRepository.Core.csproj">
+    <ProjectReference Include="..\StoreProcedureRepository\StoredProcedureRepository.Core.csproj">
       <Project>{D7661264-B597-4B5F-8F1B-24AA3D0AB39C}</Project>
-      <Name>StoreProcedureRepository.Core</Name>
+      <Name>StoredProcedureRepository.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

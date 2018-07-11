@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
-using StoredProcedureRepository.Infrastructure.Services;
+using StoreProcedureRepository.Services;
 
 namespace StoredProcedureRepository.UnitTests.ServicesTests
 {

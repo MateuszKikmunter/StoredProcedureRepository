@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProcedureRepository.Core", "StoreProcedureRepository\StoreProcedureRepository.Core.csproj", "{D7661264-B597-4B5F-8F1B-24AA3D0AB39C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoredProcedureRepository.Core", "StoreProcedureRepository\StoredProcedureRepository.Core.csproj", "{D7661264-B597-4B5F-8F1B-24AA3D0AB39C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoredProcedureRepository.Infrastructure", "StoredProcedureRepository.Infrastructure\StoredProcedureRepository.Infrastructure.csproj", "{96D1C354-9925-4D0A-8A09-A96F40B85040}"
 EndProject

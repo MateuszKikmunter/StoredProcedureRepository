@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using StoredProcedureRepository.Infrastructure.Services;
+using StoreProcedureRepository.Services;
 
 namespace StoredProcedureRepository.Infrastructure.Extensions
 {

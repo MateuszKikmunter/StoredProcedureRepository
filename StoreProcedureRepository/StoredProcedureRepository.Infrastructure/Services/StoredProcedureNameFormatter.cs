@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using StoredProcedureRepository.Infrastructure.Extensions;
+using StoreProcedureRepository.Services;
 
 namespace StoredProcedureRepository.Infrastructure.Services
 {
