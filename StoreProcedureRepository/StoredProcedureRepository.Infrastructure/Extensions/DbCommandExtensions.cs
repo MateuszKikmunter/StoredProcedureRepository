@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using StoredProcedureRepository.Infrastructure.Services;
@@ -63,6 +64,60 @@ namespace StoredProcedureRepository.Infrastructure.Extensions
             cmd.ConfigureParamAndAdd(sqlParam, configureParam);
 
             return cmd;
+        }
+
+        /// <summary>
+        /// Executes stored procedure and and returns the number of rows affected. 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public static int ExecuteStoredProceure(this DbCommand cmd)
+        {
+            using (cmd)
+            {
+                if (cmd.Connection.State == ConnectionState.Closed)
+                {
+                    cmd.Connection.Open();
+                }
+                    
+                try
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Executes stored procedure and returns collection of entities with specified data type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public static IList<T> ExecuteStoredProcedure<T>(this DbCommand command)
+        {
+            using (command)
+            {
+                if (command.Connection.State == ConnectionState.Closed)
+                {
+                    command.Connection.Open();
+                }
+
+                try
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        return reader.MapToList<T>();
+                    }
+                }
+                finally
+                {
+                    command.Connection.Close();
+                }
+            }
         }
 
         private static void ConfigureParamAndAdd(this DbCommand cmd, SqlParameter param, Action<SqlParameter> configureParam)

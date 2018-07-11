@@ -14,7 +14,7 @@ namespace StoreProcedureRepository.Abstract
         IEnumerable<T> Get<T>(string spName, object parameter);
 
         /// <summary>
-        /// Performs DML/DDL parametrized query against database. 
+        /// Performs DML/DDL parametrized query against database and returns the number of rows affected. 
         /// </summary>
         /// <param name="spName"></param>
         /// <param name="parameter"></param>
