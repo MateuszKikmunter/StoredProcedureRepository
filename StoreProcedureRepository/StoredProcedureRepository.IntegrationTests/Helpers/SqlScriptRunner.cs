@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace StoredProcedureRepository.IntegrationTests.Helpers
 {
-    public static class SqlScriptRunner
+    internal static class SqlScriptRunner
     {
         private static string _sqlFileExtension => "*.sql";
         private static string _sqlScriptsFolderName => "SqlScripts";
@@ -30,12 +30,11 @@ namespace StoredProcedureRepository.IntegrationTests.Helpers
             ExecuteScript("SetUpDatabase");
         }
 
-        private static IList<string> GetFileNames()
+        private static IEnumerable<string> GetFileNames()
         {
             return Directory
                 .GetFiles(_sqlScriptsLocation, _sqlFileExtension)
-                .Select(Path.GetFileName)
-                .ToList();
+                .Select(Path.GetFileName);
         }
 
         private static string GetConnectionString()
@@ -49,10 +48,16 @@ namespace StoredProcedureRepository.IntegrationTests.Helpers
             return $"{_sqlScriptsLocation}\\{script}";
         }
 
-        private static void ExecuteScript(string scriptName)
+        private static string[] GetSqlFromFile(string scriptName)
         {
             var splitter = new[] { "\r\nGO\r\n" };
-            var sql = File.ReadAllText(GetScriptToRunByName(scriptName)).Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+            var fileContent = File.ReadAllText(GetScriptToRunByName(scriptName));
+            return fileContent.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        private static void ExecuteScript(string scriptName)
+        {
+            var sql = GetSqlFromFile(scriptName);
             using (var connection = new SqlConnection(GetConnectionString()))
             {
                 connection.Open();

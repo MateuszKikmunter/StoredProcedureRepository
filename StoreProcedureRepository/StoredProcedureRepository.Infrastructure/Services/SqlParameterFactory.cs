@@ -64,7 +64,6 @@ namespace StoredProcedureRepository.Infrastructure.Services
             return new SqlParameter
             {
                 ParameterName = $"@{paramName}",
-                TypeName = $"dbo.{paramName}",
                 SqlDbType = SqlDbType.Structured,
                 Value = ConvertToDataTable(value)
             };

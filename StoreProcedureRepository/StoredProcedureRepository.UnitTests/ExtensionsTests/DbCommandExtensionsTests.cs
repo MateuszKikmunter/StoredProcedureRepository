@@ -161,7 +161,6 @@ namespace StoredProcedureRepository.UnitTests.ExtensionsTests
             //assert
             _command.Parameters.Count.Should().Be(1);
             addedParam.SqlDbType.Should().Be(SqlDbType.Structured);
-            addedParam.TypeName.Should().Be($"dbo.{paramName}");
             addedParam.ParameterName.Should().Be($"@{paramName}");
 
             addedParamValueDataTable.Rows.Count.Should().Be(1);
@@ -221,7 +220,6 @@ namespace StoredProcedureRepository.UnitTests.ExtensionsTests
 
             //first added parameter assertions
             firstAddedParam.SqlDbType.Should().Be(SqlDbType.Structured);
-            firstAddedParam.TypeName.Should().Be($"dbo.{firstParameter.Name}");
             firstAddedParam.ParameterName.Should().Be($"@{firstParameter.Name}");
 
             firstAddedParamValueDataTable.Rows.Count.Should().Be(1);
@@ -282,7 +280,6 @@ namespace StoredProcedureRepository.UnitTests.ExtensionsTests
 
             //first added param assertions
             firstAddedParam.SqlDbType.Should().Be(SqlDbType.Structured);
-            firstAddedParam.TypeName.Should().Be($"dbo.{userDefinedTableTypeParameter.ParamName}");
             firstAddedParam.ParameterName.Should().Be($"@{userDefinedTableTypeParameter.ParamName}");
 
             firstAddedParamValueDataTable.Rows.Count.Should().Be(1);

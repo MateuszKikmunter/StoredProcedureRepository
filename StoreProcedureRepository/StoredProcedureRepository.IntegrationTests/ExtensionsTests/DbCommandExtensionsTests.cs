@@ -1,7 +1,10 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using StoredProcedureRepository.Infrastructure.Extensions;
+using StoredProcedureRepository.IntegrationTests.Entities;
 using StoredProcedureRepository.IntegrationTests.Helpers;
 
 namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
@@ -27,10 +30,10 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
         }
 
         [Test]
-        public void LoadStoredProcedure_LoadsdbCommand()
+        public void LoadStoredProcedure_LoadsDbCommand()
         {
             //arrange
-            var storedProcedureName = "HighPerformanStoredProcedure";
+            var storedProcedureName = "HighPerformantStoredProcedure";
 
             //act
             var command = _context.LoadStoredProcedure(storedProcedureName);
@@ -39,6 +42,69 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
             command.Should().NotBeNull();
             command.CommandText.Should().Be(storedProcedureName);
             command.CommandType.Should().Be(CommandType.StoredProcedure);
+        }
+
+        [Test]
+        public void WithUserDefinedDataTableSqlParam_ExecutesStoredProcedureAndReturnsNumberOfAffectedRow()
+        {
+            //arrange
+            var spName = "CreateEmployees";
+            var entitiesToInsert = new List<Employee>
+            {
+                new Employee
+                {
+                    Name = "Luke Skywalker"
+                },
+                new Employee
+                {
+                    Name = "Darth Vader"
+                }
+            };
+
+            //act
+            var cmd = _context
+                .LoadStoredProcedure(spName)
+                .WithUserDefinedDataTableSqlParam("Employees", entitiesToInsert);
+
+            var result = cmd.ExecuteStoredProceure();
+
+            //assert
+            result.Should().Be(2);
+        }
+
+        [Test]
+        public void WithSqlParam_ExecutesStoredProcedureAndReturnsEntities()
+        {
+            //arrange
+            var entitiesToInsert = new List<Employee>
+            {
+                new Employee
+                {
+                    Name = "Luke Skywalker"
+                },
+                new Employee
+                {
+                    Name = "Darth Vader"
+                }
+            };
+
+            var name = entitiesToInsert.First().Name;
+
+            //act
+            _context
+                .LoadStoredProcedure("CreateEmployees")
+                .WithUserDefinedDataTableSqlParam("Employees", entitiesToInsert)
+                .ExecuteStoredProceure();
+
+            var result = _context
+                .LoadStoredProcedure("GetEmployeeByName")
+                .WithSqlParam("EmployeeName", name)
+                .ExecuteStoredProcedure<Employee>();
+
+            //assert
+            result.Should().NotBeNullOrEmpty();
+            result.Count.Should().Be(1);
+            result.First().Name.Should().Be(name);
         }
     }
 }

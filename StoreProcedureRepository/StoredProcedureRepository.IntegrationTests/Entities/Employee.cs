@@ -1,8 +1,10 @@
-﻿namespace StoredProcedureRepository.IntegrationTests.Entities
+﻿using System;
+
+namespace StoredProcedureRepository.IntegrationTests.Entities
 {
     public class Employee
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

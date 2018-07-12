@@ -1,30 +1,45 @@
 ﻿-- Create Employees Table
 
 CREATE TABLE Employees (
-    Id int IDENTITY(1,1) PRIMARY KEY,
+    Id uniqueidentifier PRIMARY KEY,
     Name nvarchar(50) NOT NULL
 );
+	
+ALTER TABLE Employees
+ADD CONSTRAINT DF_Id DEFAULT newsequentialid() FOR Id
 
 -- Create Employee User Defined Table Type
 
  CREATE TYPE [dbo].[EmployeeTableType] AS TABLE
 (
-    [Id] [int] NOT NULL,
+    [Id] [uniqueidentifier] NULL,
     [Name] [nvarchar](50) NULL
-    PRIMARY KEY CLUSTERED 
-    (
-        [Id] ASC
-    )
 );
 
--- Create Employees Stored Procedure
+-- Create CreateEmployees Stored Procedure
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.CreateEmployees') AND type in (N'P', N'PC'))
-  EXEC sp_executesql N'CREATE PROCEDURE dbo.CreateEmployees AS BEGIN RETURN 0 END'
 GO
-ALTER PROCEDURE dbo.CreateEmployees(@EmployeeTableType dbo.EmployeeTableType READONLY)
+CREATE PROCEDURE dbo.CreateEmployees(@Employees dbo.EmployeeTableType READONLY)
 AS
 BEGIN
 	INSERT INTO dbo.Employees (Name)
-	SELECT Name FROM @EmployeeTableType;
+	SELECT Name FROM @Employees;
+END
+
+-- Create GetEmployeeByName Stored Procedure
+
+GO
+CREATE PROCEDURE dbo.GetEmployeeByName(@EmployeeName nvarchar(50))
+AS
+BEGIN
+	SELECT * FROM Employees WHERE Name = @EmployeeName;
+END
+
+-- Create UpdateEmployees Stored Procedure
+
+GO
+CREATE PROCEDURE dbo.UpdateEmployees(@EmployeeName nvarchar(50))
+AS
+BEGIN
+	SELECT * FROM Employees WHERE Name = @EmployeeName;
 END

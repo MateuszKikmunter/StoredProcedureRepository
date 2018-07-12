@@ -2,6 +2,10 @@
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.CreateEmployees') AND type in (N'P', N'PC'))
 	DROP PROCEDURE CreateEmployees;
 
+-- Drop GetEmployeeByName Stored Procedure
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetEmployeeByName') AND type in (N'P', N'PC'))
+	DROP PROCEDURE GetEmployeeByName;
+
 -- Drop Employees Table
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Employees' AND TABLE_SCHEMA = 'dbo')
     DROP TABLE dbo.Employees;
