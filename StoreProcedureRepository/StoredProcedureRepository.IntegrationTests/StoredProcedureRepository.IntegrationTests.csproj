@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -70,6 +71,8 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Entities\Employee.cs" />
+    <Compile Include="ExtensionsTests\DbCommandExtensionsTests.cs" />
+    <Compile Include="Helpers\SqlScriptRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,10 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\StoredProcedureRepository.mdf" />
-    <Content Include="SqlScripts\CreateEmployees.sql" />
-    <Content Include="SqlScripts\CreateEmployeeTable.sql" />
-    <Content Include="SqlScripts\CreateEmployeeUserDefinedTableType.sql" />
-    <Content Include="SqlScripts\DropTablesTypesAndProcedures.sql" />
+    <Content Include="SqlScripts\ClearDatabase.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScripts\SetUpDatabase.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
