@@ -38,8 +38,20 @@ END
 -- Create UpdateEmployees Stored Procedure
 
 GO
-CREATE PROCEDURE dbo.UpdateEmployees(@EmployeeName nvarchar(50))
+CREATE PROCEDURE dbo.UpdateEmployees(@Employees dbo.EmployeeTableType READONLY)
 AS
 BEGIN
-	SELECT * FROM Employees WHERE Name = @EmployeeName;
+	UPDATE dbo.Employees 
+	SET Employees.Name = e.Name  
+    FROM dbo.Employees INNER JOIN @Employees AS e
+    ON dbo.Employees.Id = e.Id;  
+END
+
+-- Create GetAllEmployees Stored Procedure
+
+GO
+CREATE PROCEDURE dbo.GetAllEmployees
+AS
+BEGIN
+	SELECT * FROM Employees;
 END

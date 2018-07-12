@@ -73,6 +73,44 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
         }
 
         [Test]
+        public void WithUserDefinedDataTableSqlParam_ExecutesStoredProcedureAndUpdatesEntities()
+        {
+            //arrange
+            var nameToSet = "Boba Fett";
+            var entitiesToInsert = new List<Employee>
+            {
+                new Employee
+                {
+                    Name = "Luke Skywalker"
+                },
+                new Employee
+                {
+                    Name = "Darth Vader"
+                }
+            };
+
+            //act
+            _context
+                .LoadStoredProcedure("CreateEmployees")
+                .WithUserDefinedDataTableSqlParam("Employees", entitiesToInsert)
+                .ExecuteStoredProceure();
+
+            var entitiesFromDataStore = _context
+                .LoadStoredProcedure("GetAllEmployees")
+                .ExecuteStoredProcedure<Employee>();
+
+            entitiesFromDataStore.ToList().ForEach(e => e.Name = nameToSet);
+
+            var numberOfRowsAffected = _context
+                .LoadStoredProcedure("UpdateEmployees")
+                .WithUserDefinedDataTableSqlParam("Employees", entitiesFromDataStore)
+                .ExecuteStoredProceure();
+
+            //assert
+            numberOfRowsAffected.Should().Be(2);
+        }
+
+        [Test]
         public void WithSqlParam_ExecutesStoredProcedureAndReturnsEntities()
         {
             //arrange
