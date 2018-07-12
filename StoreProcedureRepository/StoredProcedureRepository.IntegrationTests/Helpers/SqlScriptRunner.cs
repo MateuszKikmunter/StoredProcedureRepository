@@ -27,7 +27,7 @@ namespace StoredProcedureRepository.IntegrationTests.Helpers
         /// </summary>
         public static void SetUpDatabase()
         {
-            ExecuteScript("ClearDatabase");
+            ExecuteScript("SetUpDatabase");
         }
 
         private static IList<string> GetFileNames()
@@ -51,12 +51,17 @@ namespace StoredProcedureRepository.IntegrationTests.Helpers
 
         private static void ExecuteScript(string scriptName)
         {
+            var splitter = new[] { "\r\nGO\r\n" };
+            var sql = File.ReadAllText(GetScriptToRunByName(scriptName)).Split(splitter, StringSplitOptions.RemoveEmptyEntries);
             using (var connection = new SqlConnection(GetConnectionString()))
             {
                 connection.Open();
                 var cmd = connection.CreateCommand();
-                cmd.CommandText = File.ReadAllText(GetScriptToRunByName(scriptName));
-                cmd.ExecuteNonQuery();
+                foreach (var sqlStatement in sql)
+                {
+                    cmd.CommandText = sqlStatement;
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ CREATE TABLE Employees (
     (
         [Id] ASC
     )
-)
+);
 
 -- Create Employees Stored Procedure
 
@@ -28,4 +28,3 @@ BEGIN
 	INSERT INTO dbo.Employees (Name)
 	SELECT Name FROM @EmployeeTableType;
 END
-GO

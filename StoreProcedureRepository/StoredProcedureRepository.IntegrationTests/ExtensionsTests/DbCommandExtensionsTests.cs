@@ -15,6 +15,7 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
         public void SetUp()
         {
             _context = new ApplicationDbContext();
+            SqlScriptRunner.ClearDatabase();
             SqlScriptRunner.SetUpDatabase();
         }
 
