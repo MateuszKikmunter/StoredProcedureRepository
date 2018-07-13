@@ -51,6 +51,7 @@
       <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -62,10 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="EntitiesConfigurations\EmployeeConfiguration.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="ExtensionsTests\DbCommandExtensionsTests.cs" />
     <Compile Include="Helpers\SqlScriptRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoriesTests\StoredProcedureRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

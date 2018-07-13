@@ -55,3 +55,12 @@ AS
 BEGIN
 	SELECT * FROM Employees;
 END
+
+-- Create DeleteEmployeeById Stored Procedure
+
+GO
+CREATE PROCEDURE dbo.DeleteEmployeeById(@EmployeeId uniqueidentifier)
+AS
+BEGIN
+	DELETE FROM Employees WHERE Id = @EmployeeId;
+END

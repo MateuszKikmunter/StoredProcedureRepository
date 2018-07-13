@@ -9,7 +9,10 @@ namespace StoredProcedureRepository.Infrastructure.Services
         public static string GetStoredProcedureNameWithParameters(string spName, object param)
         {
             Guard.ThrowIfStringNullOrWhiteSpace(spName);
-            Guard.ThrowIfNull(param);
+            if (param == null)
+            {
+                return spName;
+            }
 
             var names = param.GetType().GetProperties().Select(p => p.Name).ToList();
             names.ForEach(name => spName += $" @{name},");

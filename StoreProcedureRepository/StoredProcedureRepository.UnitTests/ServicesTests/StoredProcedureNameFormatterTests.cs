@@ -24,19 +24,6 @@ namespace StoredProcedureRepository.UnitTests.ServicesTests
         }
 
         [Test]
-        public void GetStoredProcedureNameWithParameters_ParamValueNull_ThrowsArgumentNullException()
-        {
-            //arrange
-            var spName = "StoredProcedureName";
-            object parameterValue = null;
-            //act
-            Action result = () => StoredProcedureNameFormatter.GetStoredProcedureNameWithParameters(spName, parameterValue);
-
-            //assert
-            result.Should().Throw<ArgumentNullException>();
-        }
-
-        [Test]
         public void GetStoredProcedureNameWithParameters_ValidInput_ReturnsSpNameWithParameterNames()
         {
             //arrange

@@ -11,7 +11,7 @@ namespace StoreProcedureRepository.Abstract
         /// <param name="spName"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        IEnumerable<T> Get<T>(string spName, object parameter);
+        IEnumerable<T> Get<T>(string spName, object parameter = null);
 
         /// <summary>
         /// Performs DML/DDL parametrized query against database and returns the number of rows affected. 
@@ -19,6 +19,6 @@ namespace StoreProcedureRepository.Abstract
         /// <param name="spName"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        int ExecuteCommand(string spName, object parameter);
+        int ExecuteCommand(string spName, object parameter = null);
     }
 }
