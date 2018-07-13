@@ -1,4 +1,4 @@
-﻿using System;
+﻿using StoreProcedureRepository.Services;
 
 namespace StoredProcedureRepository.Infrastructure.Extensions
 {
@@ -6,10 +6,7 @@ namespace StoredProcedureRepository.Infrastructure.Extensions
     {
         public static string RemoveLastCharacter(this string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
+            Guard.ThrowIfStringNullOrWhiteSpace(input);
 
             return input.Remove(input.Length - 1);
         }

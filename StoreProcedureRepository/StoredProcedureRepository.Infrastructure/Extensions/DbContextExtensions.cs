@@ -7,12 +7,12 @@ namespace StoredProcedureRepository.Infrastructure.Extensions
 {
     public static class DbContextExtensions
     {
-        public static DbCommand LoadStoredProcedure(this DbContext context, string storeProcedureName)
+        public static DbCommand LoadStoredProcedure(this DbContext context, string storedProcedureName)
         {
-            Guard.ThrowIfStringNullOrWhiteSpace(storeProcedureName);
+            Guard.ThrowIfStringNullOrWhiteSpace(storedProcedureName);
 
             var cmd = context.Database.Connection.CreateCommand();
-            cmd.CommandText = storeProcedureName;
+            cmd.CommandText = storedProcedureName;
             cmd.CommandType = CommandType.StoredProcedure;
 
             return cmd;

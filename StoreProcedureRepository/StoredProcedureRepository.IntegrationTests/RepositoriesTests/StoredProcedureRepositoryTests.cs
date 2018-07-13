@@ -18,7 +18,6 @@ namespace StoredProcedureRepository.IntegrationTests.RepositoriesTests
         {
             _context = new ApplicationDbContext();
             _repository = new Infrastructure.Data.StoredProcedureRepository(_context);
-            SqlScriptRunner.ClearDatabase();
             SqlScriptRunner.SetUpDatabase();
             SeedDatabase();
         }

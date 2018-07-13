@@ -19,7 +19,6 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
         public void SetUp()
         {
             _context = new ApplicationDbContext();
-            SqlScriptRunner.ClearDatabase();
             SqlScriptRunner.SetUpDatabase();
         }
 
@@ -46,7 +45,7 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
         }
 
         [Test]
-        public void WithUserDefinedDataTableSqlParam_ExecutesStoredProcedureAndReturnsNumberOfAffectedRow()
+        public void WithUserDefinedDataTableSqlParam_ExecutesStoredProcedureAndReturnsNumberOfAffectedRows()
         {
             //arrange
             var spName = "CreateEmployees";
@@ -63,11 +62,10 @@ namespace StoredProcedureRepository.IntegrationTests.ExtensionsTests
             };
 
             //act
-            var cmd = _context
+            var result = _context
                 .LoadStoredProcedure(spName)
-                .WithUserDefinedDataTableSqlParam("Employees", entitiesToInsert);
-
-            var result = cmd.ExecuteStoredProceure();
+                .WithUserDefinedDataTableSqlParam("Employees", entitiesToInsert)       
+                .ExecuteStoredProceure();
 
             //assert
             result.Should().Be(2);

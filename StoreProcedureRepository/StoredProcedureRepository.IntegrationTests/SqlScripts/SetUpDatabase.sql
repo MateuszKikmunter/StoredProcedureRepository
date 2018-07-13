@@ -13,7 +13,7 @@ ADD CONSTRAINT DF_Id DEFAULT newsequentialid() FOR Id
  CREATE TYPE [dbo].[EmployeeTableType] AS TABLE
 (
     [Id] [uniqueidentifier] NULL,
-    [Name] [nvarchar](50) NULL
+    [Name] [nvarchar](50) NOT NULL
 );
 
 -- Create CreateEmployees Stored Procedure
