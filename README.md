@@ -6,11 +6,13 @@ Project written because of a solution which I was working on which had very old 
  
  Sample Usage:
  
+```CSharp
  public IEnumerable<Client> GetActiveClientsByClientCode(string code, string userAdName, int menuFilter)
-        {
-            return _storedProcedureRepository.GetData<ClientSimple>("uspGetActiveClientsByClientCode",
-                new { Code = code, UserAdName = userAdName, Filter = menuFilter })
-                .GroupBy(c => new { c.Name, c.Number })
-                .Select(c => c.First())
-                .ToList();
-        }
+{
+  return _storedProcedureRepository.GetData<ClientSimple>("uspGetActiveClientsByClientCode",
+    new { Code = code, UserAdName = userAdName, Filter = menuFilter })
+    .GroupBy(c => new { c.Name, c.Number })
+    .Select(c => c.First())
+    .ToList();
+}
+```
